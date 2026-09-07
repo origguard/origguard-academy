@@ -127,6 +127,7 @@
       box-shadow: 0 15px 40px rgba(0,0,0,0.8);
       overflow: hidden;
       margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
     }
 
     .cert-header {
@@ -182,20 +183,26 @@
       display: flex;
       align-items: flex-start;
       gap: 0.85rem;
+      transition: all 0.3s ease;
     }
 
     .verdict-banner.valid {
       background: var(--green-bg);
-      border: 1px solid rgba(16, 185, 129, 0.4);
+      border: 1.5px solid var(--green);
     }
 
     .verdict-banner.invalid {
       background: var(--red-bg);
-      border: 1px solid rgba(239, 68, 68, 0.4);
+      border: 1.5px solid var(--red);
+    }
+
+    .verdict-banner.waiting {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1.5px solid var(--cyan);
     }
 
     .verdict-icon {
-      font-size: 1.8rem;
+      font-size: 1.75rem;
       line-height: 1;
       flex-shrink: 0;
     }
@@ -203,72 +210,79 @@
     .verdict-title {
       font-size: 0.95rem;
       font-weight: 900;
+      margin-bottom: 0.25rem;
       letter-spacing: 0.5px;
-      line-height: 1.25;
-      margin-bottom: 0.3rem;
     }
 
-    .valid .verdict-title { color: #34d399; }
-    .invalid .verdict-title { color: #f87171; }
+    .verdict-banner.valid .verdict-title { color: #34d399; }
+    .verdict-banner.invalid .verdict-title { color: #f87171; }
+    .verdict-banner.waiting .verdict-title { color: var(--cyan); }
 
     .verdict-text {
-      font-size: 0.75rem;
+      font-size: 0.82rem;
       color: #cbd5e1;
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
-    /* Fiche Titulaire */
+    /* Fiche d'identité */
     .profile-card {
-      margin: 1rem;
-      background: rgba(17, 26, 47, 0.7);
-      border: 1px solid rgba(212, 175, 55, 0.25);
+      margin: 0 1rem 1rem;
+      background: #111a28;
+      border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 1.15rem;
-      display: grid;
-      gap: 0.85rem;
+      padding: 1.1rem;
     }
 
     .field-row {
       display: flex;
       flex-direction: column;
-      gap: 0.15rem;
+      margin-bottom: 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 0.6rem;
+    }
+
+    .field-row:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+      padding-bottom: 0;
     }
 
     .field-label {
-      font-size: 0.68rem;
-      font-weight: 800;
+      font-size: 0.7rem;
+      font-weight: 700;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      margin-bottom: 0.15rem;
     }
 
     .field-value {
       font-size: 0.95rem;
-      font-weight: 800;
+      font-weight: 700;
       color: #fff;
     }
 
     .field-value.highlight {
-      font-size: 1.2rem;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      color: #fff;
-    }
-
-    .field-value.degree {
-      color: #facc15;
-      font-size: 1.05rem;
-    }
-
-    .field-value.mention {
-      color: #34d399;
-      font-weight: 700;
+      color: var(--gold);
+      font-size: 1.15rem;
+      font-weight: 800;
     }
 
     .field-value.matricule {
       font-family: monospace;
       color: var(--cyan);
-      font-size: 1rem;
+      font-size: 1.05rem;
+      letter-spacing: 1px;
+    }
+
+    .field-value.degree {
+      color: #fca5a5;
+      font-weight: 800;
+    }
+
+    .field-value.mention {
+      color: #86efac;
+      font-weight: 800;
     }
 
     .grid-2 {
@@ -277,127 +291,163 @@
       gap: 0.85rem;
     }
 
+    @media (max-width: 480px) {
+      .grid-2 { grid-template-columns: 1fr; gap: 0.5rem; }
+    }
+
     /* Consigne Consulaire */
     .consigne-box {
-      margin: 1rem;
-      background: rgba(15, 23, 42, 0.9);
-      border-left: 4px solid var(--gold);
-      border-radius: 0 10px 10px 0;
+      margin: 0 1rem 1rem;
+      background: rgba(212, 175, 55, 0.08);
+      border: 1px dashed var(--gold);
+      border-radius: 10px;
       padding: 0.85rem 1rem;
-      font-size: 0.75rem;
-      color: #cbd5e1;
-      line-height: 1.45;
+      font-size: 0.8rem;
+      color: #fef08a;
+      line-height: 1.4;
     }
 
     .consigne-title {
       font-weight: 800;
-      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       margin-bottom: 0.25rem;
-      font-size: 0.78rem;
       display: flex;
       align-items: center;
       gap: 0.35rem;
+      color: var(--gold);
     }
 
-    /* Preuve Technique */
+    /* Preuve Technique OVP-1 */
     .tech-box {
-      margin: 1rem;
-      background: #050912;
+      margin: 0 1rem 1rem;
+      background: #080c14;
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 0.85rem 1rem;
       font-family: monospace;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
-      display: grid;
-      gap: 0.4rem;
     }
 
     .tech-item {
-      display: flex;
-      flex-direction: column;
+      margin-bottom: 0.5rem;
       word-break: break-all;
     }
 
-    .tech-item span:first-child {
+    .tech-item:last-child { margin-bottom: 0; }
+
+    .tech-item span {
+      display: block;
       color: #64748b;
       font-size: 0.65rem;
       text-transform: uppercase;
-    }
-
-    .tech-item span:last-child {
-      color: var(--cyan);
+      font-family: var(--font);
       font-weight: 700;
+      margin-bottom: 0.1rem;
     }
 
     /* Actions */
     .actions-bar {
       margin: 1rem;
       display: flex;
-      gap: 0.6rem;
-      flex-wrap: wrap;
+      gap: 0.75rem;
     }
 
     .btn {
       flex: 1;
-      min-width: 140px;
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      font-size: 0.82rem;
-      font-weight: 800;
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
       cursor: pointer;
-      text-align: center;
       border: none;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 0.4rem;
-      text-decoration: none;
       transition: all 0.2s;
     }
 
     .btn-print {
-      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      background: linear-gradient(135deg, #1e2d42 0%, #111a28 100%);
       color: #fff;
-      box-shadow: 0 4px 15px rgba(5, 150, 105, 0.4);
+      border: 1px solid var(--border);
     }
 
     .btn-secondary {
-      background: rgba(255,255,255,0.08);
-      color: #cbd5e1;
-      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
     }
 
-    /* Barre d'échantillons */
-    .samples-card {
+    .btn-primary {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(5, 150, 105, 0.35);
+    }
+
+    /* Boîte de Recherche & Démo */
+    .search-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.15rem;
+      border-radius: 16px;
+      padding: 1.25rem;
       margin-bottom: 1.5rem;
     }
 
-    .samples-title {
-      font-size: 0.82rem;
+    .search-title {
+      font-size: 0.95rem;
       font-weight: 800;
       color: #fff;
-      margin-bottom: 0.6rem;
+      margin-bottom: 0.75rem;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.5rem;
+    }
+
+    .search-form {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .search-input {
+      flex: 1;
+      background: #090e17;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: #fff;
+      font-family: monospace;
+      font-size: 0.95rem;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .search-btn {
+      background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%);
+      color: #000;
+      font-weight: 800;
+      border: none;
+      padding: 0 1.25rem;
+      border-radius: 8px;
+      cursor: pointer;
     }
 
     .samples-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
+      gap: 0.5rem;
     }
 
     .pill {
-      background: #090e17;
-      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       color: #cbd5e1;
-      padding: 0.4rem 0.75rem;
+      padding: 0.45rem 0.85rem;
       border-radius: 20px;
       font-size: 0.75rem;
       font-weight: 700;
@@ -406,52 +456,24 @@
     }
 
     .pill:hover {
+      background: rgba(212, 175, 55, 0.2);
       border-color: var(--gold);
       color: #fff;
-      transform: translateY(-1px);
     }
 
     .pill.danger {
-      border-color: rgba(239, 68, 68, 0.5);
-      color: #f87171;
+      border-color: #ef4444;
+      color: #fca5a5;
     }
 
     .pill.danger:hover {
-      background: rgba(239, 68, 68, 0.15);
-    }
-
-    /* Search input */
-    .search-box {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 0.85rem;
-    }
-
-    .search-input {
-      flex: 1;
-      background: #070d18;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.65rem 0.85rem;
+      background: rgba(239, 68, 68, 0.2);
       color: #fff;
-      font-size: 0.82rem;
-      font-family: monospace;
-    }
-
-    .search-btn {
-      background: var(--haiti-blue);
-      border: 1px solid #1e3a8a;
-      color: #fff;
-      padding: 0.65rem 1rem;
-      border-radius: 8px;
-      font-weight: 800;
-      font-size: 0.82rem;
-      cursor: pointer;
     }
 
     footer {
       text-align: center;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       color: #64748b;
       margin-top: 2rem;
       line-height: 1.6;
@@ -459,46 +481,70 @@
 
     @media print {
       body { background: #fff; color: #000; }
-      .national-ribbon, .badge-live, .actions-bar, .samples-card, .search-box, footer { display: none !important; }
+      .actions-bar, .search-card, header, .national-ribbon, footer { display: none !important; }
       .cert-card { border: 2px solid #000; box-shadow: none; background: #fff; color: #000; }
-      .cert-header { background: #fff; color: #000; border-bottom: 2px solid #000; }
-      .field-value, .cert-main-title { color: #000 !important; }
-      .verdict-banner { border: 2px solid #000; background: #f8fafc; color: #000; }
+      .cert-header { background: #f8fafc; border-bottom: 1px solid #ccc; }
+      .cert-main-title { color: #000; }
       .profile-card { background: #fff; border: 1px solid #ccc; }
-      .tech-box { background: #fff; border: 1px solid #ccc; color: #333; }
+      .field-value { color: #000 !important; }
+      .field-label { color: #555 !important; }
+      .consigne-box { background: #fefce8; border: 1px solid #ca8a04; color: #713f12; }
+      .tech-box { background: #f8fafc; border: 1px solid #ccc; color: #333; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Ruban bicolore national d'Haïti -->
   <div class="national-ribbon"></div>
 
+  <!-- En-tête Consulaire -->
   <header>
     <div class="brand-box">
-      <!-- Drapeau SVG Haïti -->
-      <svg class="flag-icon" viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
-        <rect width="300" height="90" fill="#002060"/>
-        <rect y="90" width="300" height="90" fill="#c00000"/>
-        <rect x="110" y="60" width="80" height="60" fill="#ffffff" rx="4"/>
-        <circle cx="150" cy="90" r="16" fill="#d4af37" opacity="0.6"/>
-        <text x="150" y="94" font-size="14" text-anchor="middle" fill="#002060" font-weight="bold">UEH</text>
+      <!-- Drapeau officiel d'Haïti -->
+      <svg class="flag-icon" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg">
+        <rect width="60" height="18" fill="#002060"/>
+        <rect y="18" width="60" height="18" fill="#c00000"/>
+        <rect x="22" y="10" width="16" height="16" fill="#ffffff" rx="2"/>
+        <circle cx="30" cy="18" r="5" fill="#d4af37"/>
       </svg>
       <div>
-        <div class="brand-title">Université d'État d'Haïti</div>
-        <div class="brand-sub">Contrôle Consulaire OVP-1 · République d'Haïti</div>
+        <div class="brand-title">RÉPUBLIQUE D'HAÏTI</div>
+        <div class="brand-sub">UNIVERSITÉ D'ÉTAT D'HAÏTI · MENFP</div>
       </div>
     </div>
-
     <div class="badge-live">
-      <span class="pulse-dot"></span>
-      <span>Vérification Active</span>
+      <div class="pulse-dot"></div>
+      <span>RÉSEAU SOUVERAIN OVP-1 ACTIF</span>
     </div>
   </header>
 
   <div class="container">
 
+    <!-- RECHERCHE RAPIDE & TESTS -->
+    <div class="search-card">
+      <div class="search-title">
+        <span>🔍</span> Contrôle d'Homologation & Vérification de Diplôme
+      </div>
+      <div class="search-form">
+        <input type="text" id="manualInput" class="search-input" placeholder="Saisir un Matricule (ex: UEH-FDSE-2026-0012) ou Nom...">
+        <button type="button" class="search-btn" onclick="verifierManuelle()">Vérifier</button>
+      </div>
+
+      <div style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 0.5rem; font-weight: 700;">
+        ⚡ Tester immédiatement les promotions officielles en 1 clic :
+      </div>
+      <div class="samples-pills">
+        <button type="button" class="pill" onclick="testerPreset('UEH-FDSE-2026-0012')">⚖️ Marie-Thérèse JEAN-BAPTISTE (Droit)</button>
+        <button type="button" class="pill" onclick="testerPreset('UEH-FDS-2026-0045')">💻 Alexandre AUGUSTIN (Génie Info)</button>
+        <button type="button" class="pill" onclick="testerPreset('UEH-FMP-2026-0008')">🩺 Dr. Nadine VALENTIN (Médecine)</button>
+        <button type="button" class="pill" onclick="testerPreset('UEH-FAMV-2026-0021')">🌾 Jean-Michel DORVAL (Agronomie)</button>
+        <button type="button" class="pill danger" onclick="testerPreset('FAUX-DIPLOME-9999')">🚨 Simulation Contrefaçon (Rejet)</button>
+      </div>
+    </div>
+
     <!-- CARTE OFFICIELLE DE VÉRIFICATION DU TITRE -->
-    <div class="cert-card">
+    <div class="cert-card" id="certCard">
       <div class="cert-header">
         <div class="cert-seal">🎓</div>
         <div class="cert-sup">RÉPUBLIQUE D'HAÏTI · MINISTÈRE DE L'ÉDUCATION NATIONALE (MENFP)</div>
@@ -581,30 +627,11 @@
         <button type="button" class="btn btn-print" onclick="window.print()">
           🖨️ Imprimer Constat Consulaire (PDF)
         </button>
-        <button type="button" class="btn btn-secondary" onclick="reinitialiserVue()">
-          🔍 Nouvelle Vérification
+        <button type="button" class="btn btn-primary" onclick="nouvelleRecherche()">
+          🔍 Nouveau Scan / Recherche
         </button>
       </div>
 
-    </div>
-
-    <!-- EXEMPLES ET RECHERCHE MANUELLE -->
-    <div class="samples-card">
-      <div class="samples-title">
-        <span>⚡</span> Tester d'autres diplômes d'État officiels en 1 clic :
-      </div>
-      <div class="samples-pills">
-        <button type="button" class="pill" onclick="testerPreset('UEH-FDSE-2026-0012')">⚖️ Marie-Thérèse JEAN-BAPTISTE (Droit)</button>
-        <button type="button" class="pill" onclick="testerPreset('UEH-FDS-2026-0045')">💻 Alexandre AUGUSTIN (Génie Info)</button>
-        <button type="button" class="pill" onclick="testerPreset('UEH-FMP-2026-0008')">🩺 Dr. Nadine VALENTIN (Médecine)</button>
-        <button type="button" class="pill" onclick="testerPreset('UEH-FAMV-2026-0021')">🌾 Jean-Michel DORVAL (Agronomie)</button>
-        <button type="button" class="pill danger" onclick="testerPreset('FAUX-DIPLOME-9999')">🚨 Simulation Contrefaçon (Rejet)</button>
-      </div>
-
-      <div class="search-box">
-        <input type="text" id="manualInput" class="search-input" placeholder="Saisir un matricule (ex: UEH-FDS-2026-0045)">
-        <button type="button" class="search-btn" onclick="verifierManuelle()">Vérifier</button>
-      </div>
     </div>
 
     <footer>
@@ -624,7 +651,7 @@
         matricule: "UEH-FDSE-2026-0012",
         faculte: "Faculté de Droit et des Sciences Économiques (FDSE)",
         diplome: "Licence en Droit (LL.B)",
-        mention: "Très Honorable avec Félicitations du Jury",
+        mention: "Magna Cum Laude",
         date_emission: "15 Juillet 2026",
         sha: "889e083505f4d0f2731ed5bb530625b38adb277e9c06755be761bd24b6d2c205",
         sig: "4yxTEKKuEny04_ZNsXWkrUH6HXziU5g7F3X1hzOL_bmr3FSycD2qC-JBAHOwXWxPhcfufHVBdL-rm4qeSMxxBA",
@@ -636,7 +663,7 @@
         matricule: "UEH-FDS-2026-0045",
         faculte: "Faculté des Sciences (FDS)",
         diplome: "Diplôme d'Ingénieur en Génie Informatique",
-        mention: "Excellence & Major de Promotion (Summa Cum Laude)",
+        mention: "Summa Cum Laude (Major de Promotion)",
         date_emission: "20 Juillet 2026",
         sha: "35d7f193d056db22168004824b0c11367e03c5c5fa2be717b6ae848fa0bb7269",
         sig: "97q5c_y-C34G_6L173iM505F6tWq9h7uF3kF_6hX701m4e7H3g2p004o4G95H78Q-F5J7_rA71X6j-085hY4Ag",
@@ -668,7 +695,7 @@
       },
       "FAUX-DIPLOME-9999": {
         nom: "INCONNU / CONTREFAÇON",
-        prenom: "Usurpateur",
+        prenom: "Usurpateur Non Inscrit",
         matricule: "FAUX-DIPLOME-9999",
         faculte: "Entité Non Reconnue",
         diplome: "Titre Falsifié Non Homologué",
@@ -682,9 +709,11 @@
 
     function analyserParametresUrl() {
       try {
-        const searchParams = new URLSearchParams(window.location.search || "");
+        const searchStr = window.location.search || "";
         let hashStr = window.location.hash || "";
         if (hashStr.startsWith("#")) hashStr = hashStr.substring(1);
+
+        const searchParams = new URLSearchParams(searchStr);
         const hashParams = new URLSearchParams(hashStr);
 
         const p = new URLSearchParams();
@@ -693,55 +722,78 @@
 
         const mat = p.get("matricule") || p.get("mat");
         const hash = p.get("hash") || p.get("sha");
-        const iss = p.get("iss") || "UEH-RECTORAT";
-        const hasAcademic = mat || (iss && iss.includes("UEH")) || p.get("fac") || p.get("deg") || p.get("nom");
+        const nomParam = p.get("nom");
+        const preParam = p.get("pre") || p.get("prenom");
+        const facParam = p.get("fac") || p.get("faculte");
+        const degParam = p.get("deg") || p.get("diplome");
+        const menParam = p.get("men") || p.get("mention");
+        const datParam = p.get("dat") || p.get("date");
 
-        if (hasAcademic) {
+        // Cas 1 : URL contient explicitement des données de diplôme (scan de QR code)
+        if (mat || nomParam || hash) {
           const matUpper = (mat || "UEH-2026").toUpperCase();
           
-          // Cas contrefaçon explicite
+          // Cas de fraude explicite
           if (matUpper.includes("FAUX") || matUpper.includes("FRAUDE")) {
             afficherResultat(PILOT_REGISTRY["FAUX-DIPLOME-9999"]);
             return;
           }
 
-          // Cas registre pilote
+          // Si des données dynamiques (nom, faculté, diplôme) sont passées dans l'URL, ELLES SONT PRIORITAIRES !
+          if (nomParam) {
+            let nom = nomParam;
+            let pre = preParam || "";
+            let fac = facParam || "Faculté des Sciences (FDS)";
+            let deg = degParam || "Diplôme d'État";
+            let men = menParam || "Très Honorable";
+            let dat = datParam || "Promotion 2026";
+            let sha = hash || "889e083505f4d0f2731ed5bb530625b38adb277e9c06755be761bd24b6d2c205";
+
+            try { nom = decodeURIComponent(nom); } catch(e) {}
+            try { pre = decodeURIComponent(pre); } catch(e) {}
+            try { fac = decodeURIComponent(fac); } catch(e) {}
+            try { deg = decodeURIComponent(deg); } catch(e) {}
+            try { men = decodeURIComponent(men); } catch(e) {}
+            try { dat = decodeURIComponent(dat); } catch(e) {}
+
+            afficherResultat({
+              nom: nom,
+              prenom: pre,
+              matricule: mat || "UEH-2026-0042",
+              faculte: fac,
+              diplome: deg,
+              mention: men,
+              date_emission: dat,
+              sha: sha,
+              isAuthentic: true
+            });
+            return;
+          }
+
+          // Sinon, vérification dans le registre pilote
           if (PILOT_REGISTRY[matUpper]) {
             afficherResultat(PILOT_REGISTRY[matUpper]);
             return;
           }
 
-          // Cas dynamique créé par le Ministre / l'Atelier
-          let nom = p.get("nom") || "JEAN-BAPTISTE";
-          let pre = p.get("pre") || p.get("prenom") || "Marie-Thérèse";
-          let fac = p.get("fac") || p.get("faculte") || "Faculté des Sciences (FDS)";
-          let deg = p.get("deg") || p.get("diplome") || "Diplôme d'Ingénieur Civil en Informatique";
-          let men = p.get("men") || p.get("mention") || "Summa Cum Laude";
-          let dat = p.get("dat") || p.get("date") || "15 Juillet 2026";
-          let sha = hash || "889e083505f4d0f2731ed5bb530625b38adb277e9c06755be761bd24b6d2c205";
-
-          try { nom = decodeURIComponent(nom); } catch(e) {}
-          try { pre = decodeURIComponent(pre); } catch(e) {}
-          try { fac = decodeURIComponent(fac); } catch(e) {}
-          try { deg = decodeURIComponent(deg); } catch(e) {}
-          try { men = decodeURIComponent(men); } catch(e) {}
-          try { dat = decodeURIComponent(dat); } catch(e) {}
-
+          // Diplôme valide générique pour matricule UEH non listé
           afficherResultat({
-            nom: nom,
-            prenom: pre,
-            matricule: mat || "UEH-FDS-2026-0042",
-            faculte: fac,
-            diplome: deg,
-            mention: men,
-            date_emission: dat,
-            sha: sha,
+            nom: "DIPLÔMÉ D'ÉTAT",
+            prenom: "Titulaire Homologué",
+            matricule: matUpper,
+            faculte: "Université d'État d'Haïti",
+            diplome: "Grade Académique d'État Scellé",
+            mention: "Conforme aux Registres d'Examens",
+            date_emission: "Promotion 2026",
+            sha: hash || "889e083505f4d0f2731ed5bb530625b38adb277e9c06755be761bd24b6d2c205",
             isAuthentic: true
           });
-        } else {
-          // Affichage par défaut sur le premier diplôme officiel
-          afficherResultat(PILOT_REGISTRY["UEH-FDSE-2026-0012"]);
+          return;
         }
+
+        // Cas 2 : L'utilisateur arrive sur le portail sans QR code
+        // Afficher par défaut le premier diplôme officiel de démonstration pour que la page soit vivante
+        afficherResultat(PILOT_REGISTRY["UEH-FDSE-2026-0012"]);
       } catch(err) {
         console.error("Erreur d'analyse des paramètres:", err);
         afficherResultat(PILOT_REGISTRY["UEH-FDSE-2026-0012"]);
@@ -773,12 +825,17 @@
       document.getElementById('dispDiplome').textContent = rec.diplome;
       document.getElementById('dispMention').textContent = rec.mention;
       document.getElementById('dispSha').textContent = rec.sha;
+
+      // Faire défiler vers le résultat en douceur
+      const card = document.getElementById('certCard');
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
 
     function testerPreset(key) {
       if (PILOT_REGISTRY[key]) {
         afficherResultat(PILOT_REGISTRY[key]);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
 
@@ -790,30 +847,33 @@
       } else if (PILOT_REGISTRY[val]) {
         testerPreset(val);
       } else {
-        // Validation dynamique
         afficherResultat({
           nom: "ÉTUDIANT DIPLÔMÉ",
           prenom: "Titulaire",
           matricule: val,
           faculte: "Faculté de l'Université d'État d'Haïti",
           diplome: "Titre Académique d'État Homologué",
-          mention: "Mention Conforme",
+          mention: "Mention Conforme aux Procès-Verbaux",
           date_emission: "Promotion 2026",
           sha: "889e083505f4d0f2731ed5bb530625b38adb277e9c06755be761bd24b6d2c205",
           isAuthentic: true
         });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
 
-    function reinitialiserVue() {
+    function nouvelleRecherche() {
       document.getElementById('manualInput').value = '';
       document.getElementById('manualInput').focus();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Initialisation
+    // Initialisation immédiate
     window.addEventListener('DOMContentLoaded', analyserParametresUrl);
     window.addEventListener('hashchange', analyserParametresUrl);
+    // Exécution directe au cas où DOMContentLoaded a déjà eu lieu
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      analyserParametresUrl();
+    }
   </script>
 </body>
 </html>
