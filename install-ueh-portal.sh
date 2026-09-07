@@ -33,8 +33,7 @@ import re
 conf_path = "/etc/nginx/sites-available/app.origguard.com"
 enabled_path = "/etc/nginx/sites-enabled/app.origguard.com"
 
-block = """
-    # --- Portail Souverain UEH ---
+block = """    # --- Portail Souverain UEH ---
     location = /ueh {
         return 301 /ueh/;
     }
@@ -44,30 +43,27 @@ block = """
         index index.html;
         try_files $uri $uri/ /ueh/index.html;
     }
-    # --- Fin Portail UEH ---
-"""
+    # --- Fin Portail UEH ---"""
 
 for p in [conf_path, enabled_path]:
     try:
         with open(p, "r") as f:
             content = f.read()
 
-        # Nettoyer un éventuel ancien bloc UEH pour éviter les doublons
         content = re.sub(r"# --- Portail Souverain UEH ---.*?# --- Fin Portail UEH ---\n?", "", content, flags=re.DOTALL)
 
-        # Insérer le bloc UEH juste avant "location / {"
         if "location / {" in content:
-            new_content = content.replace("location / {", block.strip() + "\n\n    location / {", 1)
+            new_content = content.replace("location / {", block + "\n\n    location / {", 1)
             with open(p, "w") as f:
                 f.write(new_content)
-            print(f"Bloc UEH inséré dans {p}")
+            print("Bloc UEH inséré dans:", p)
         else:
-            print(f"Attention: \"location / {\" non trouvé dans {p}")
+            print("location / { non trouvé dans:", p)
     except Exception as e:
-        print(f"Erreur sur {p}: {e}")
+        print("Erreur sur:", p, e)
 '
 
-# 5. Configuration pour ueh.origguard.com (prêt pour la propagation DNS)
+# 5. Configuration pour ueh.origguard.com
 cat << 'EOF' > /etc/nginx/sites-available/ueh.origguard.com
 server {
     listen 80;
