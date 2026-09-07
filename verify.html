@@ -623,7 +623,12 @@
       </div>
 
       <!-- Actions -->
-      <div class="actions-bar">
+      <div style="text-align: center; margin: 1rem 1rem 0;">
+      <a href="/ueh/" style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(212, 175, 55, 0.15); border: 1px solid var(--gold); color: var(--gold); padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; text-decoration: none;">
+        🏛️ Accéder à la Suite Campus Souverain UEH
+      </a>
+    </div>
+    <div class="actions-bar">
         <button type="button" class="btn btn-print" onclick="window.print()">
           🖨️ Imprimer Constat Consulaire (PDF)
         </button>
@@ -756,6 +761,25 @@
             try { men = decodeURIComponent(men); } catch(e) {}
             try { dat = decodeURIComponent(dat); } catch(e) {}
 
+            const FAC_SIGLES = {
+              "FDSE": "Faculté de Droit et des Sciences Économiques (FDSE)",
+              "FDS": "Faculté des Sciences (FDS)",
+              "FMP": "Faculté de Médecine et de Pharmacie (FMP)",
+              "FAMV": "Faculté d'Agronomie et de Médecine Vétérinaire (FAMV)",
+              "FE": "Faculté d'Ethnologie (FE)",
+              "FLA": "Faculté de Linguistique Appliquée (FLA)",
+              "IERAH": "Institut d'Études et de Recherches Africaines (IERAH/ISERSS)",
+              "INAGHEI": "Institut National d'Administration, de Gestion et des Hautes Études Internationales (INAGHEI)",
+              "FASCH": "Faculté des Sciences Humaines (FASCH)",
+              "ENS": "École Normale Supérieure (ENS)",
+              "FO": "Faculté d'Odontologie (FO)"
+            };
+            if (FAC_SIGLES[fac.toUpperCase()]) {
+              fac = FAC_SIGLES[fac.toUpperCase()];
+            }
+            if (dat === "2026-07-15") dat = "15 Juillet 2026";
+            if (deg === "Licence en Droit") deg = "Licence en Droit (LL.B)";
+
             afficherResultat({
               nom: nom,
               prenom: pre,
@@ -791,13 +815,33 @@
           return;
         }
 
-        // Cas 2 : L'utilisateur arrive sur le portail sans QR code
-        // Afficher par défaut le premier diplôme officiel de démonstration pour que la page soit vivante
-        afficherResultat(PILOT_REGISTRY["UEH-FDSE-2026-0012"]);
+        // Cas 2 : L'utilisateur arrive sur le portail sans paramètre QR code
+        // Afficher l'état d'attente officiel (pas de faux pré-remplissage)
+        afficherEtatAttente();
       } catch(err) {
         console.error("Erreur d'analyse des paramètres:", err);
         afficherResultat(PILOT_REGISTRY["UEH-FDSE-2026-0012"]);
       }
+    }
+
+    function afficherEtatAttente() {
+      const banner = document.getElementById('verdictBanner');
+      const icon = document.getElementById('verdictIcon');
+      const title = document.getElementById('verdictTitle');
+      const text = document.getElementById('verdictText');
+
+      banner.className = 'verdict-banner waiting';
+      icon.textContent = '🔍';
+      title.textContent = 'CONTRÔLE D\'AUTHENTICITÉ EN ATTENTE';
+      text.textContent = 'Veuillez saisir un numéro matricule officiel (ex: UEH-FDSE-2026-0012) ou scanner le QR code d\'un parchemin officiel pour initier le contrôle cryptographique en direct.';
+
+      document.getElementById('dispNom').textContent = 'En attente de saisie...';
+      document.getElementById('dispMatricule').textContent = '---';
+      document.getElementById('dispDate').textContent = '---';
+      document.getElementById('dispFaculte').textContent = 'Université d\'État d\'Haïti';
+      document.getElementById('dispDiplome').textContent = '---';
+      document.getElementById('dispMention').textContent = '---';
+      document.getElementById('dispSha').textContent = 'En attente d\'analyse...';
     }
 
     function afficherResultat(rec) {
